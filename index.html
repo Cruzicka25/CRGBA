@@ -1,32 +1,23 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html>
 <head>
-  <title>GB Emulator</title>
-  <style>
-    canvas { width: 400px; height: 360px; image-rendering: pixelated; }
-  </style>
+  <title>Game Boy Emulator</title>
+  <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-  <canvas id="screen" width="160" height="144"></canvas>
-  <input type="file" id="romInput">
+  <div class="emulator-container">
+    <canvas id="screen" width="160" height="144"></canvas>
+    <div class="controls">
+      <input type="file" id="rom-input" accept=".gb,.gbc">
+      <div class="buttons">
+        <button id="play">Play</button>
+        <button id="pause">Pause</button>
+      </div>
+    </div>
+  </div>
   
-  <script src="emulator.js"></script>
-  <script>
-    const gb = new GameBoy();
-    const romInput = document.getElementById('romInput');
-    
-    romInput.addEventListener('change', (e) => {
-      const file = e.target.files[0];
-      const reader = new FileReader();
-      
-      reader.onload = (event) => {
-        gb.loadROM(event.target.result);
-        setInterval(() => gb.runFrame(), 16);
-      };
-      
-      reader.readAsArrayBuffer(file);
-    });
-  </script>
+  <!-- Load the emulator core -->
+  <script src="emulator/jsgb.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
