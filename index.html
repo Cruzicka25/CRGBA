@@ -1,29 +1,32 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Game Boy Emulator</title>
+  <title>GB Emulator</title>
   <style>
-    body { background: #000; text-align: center; }
-    canvas { image-rendering: pixelated; width: 640px; height: 576px; }
-    #file-input { display: none; }
-    label { color: white; cursor: pointer; }
+    canvas { width: 400px; height: 360px; image-rendering: pixelated; }
   </style>
-   <script src="https://cdn.jsdelivr.net/pyodide/v0.23.4/full/pyodide.js"></script>
 </head>
 <body>
-  
-   <h1>Python Game Boy Emulator</h1>
-  <div id="output"></div>
-  <input type="file" id="rom-file">
-  <script src="loader.js"></script>
-  
-  <h1 style="color: white;">Game Boy Emulator</h1>
   <canvas id="screen" width="160" height="144"></canvas>
-  <br>
-  <label for="file-input">Load ROM</label>
-  <input type="file" id="file-input">
+  <input type="file" id="romInput">
   
   <script src="emulator.js"></script>
-  <script src="main.js"></script>
+  <script>
+    const gb = new GameBoy();
+    const romInput = document.getElementById('romInput');
+    
+    romInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      const reader = new FileReader();
+      
+      reader.onload = (event) => {
+        gb.loadROM(event.target.result);
+        setInterval(() => gb.runFrame(), 16);
+      };
+      
+      reader.readAsArrayBuffer(file);
+    });
+  </script>
 </body>
 </html>
