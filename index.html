@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Game Boy Emulator</title>
+  <style>
+    body { background: #000; text-align: center; }
+    canvas { image-rendering: pixelated; width: 640px; height: 576px; }
+    #file-input { display: none; }
+    label { color: white; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1 style="color: white;">Game Boy Emulator</h1>
+  <canvas id="screen" width="160" height="144"></canvas>
+  <br>
+  <label for="file-input">Load ROM</label>
+  <input type="file" id="file-input">
+  
+  <script src="emulator.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
